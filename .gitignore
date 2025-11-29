@@ -54,4 +54,5 @@ compile_commands.json
 *_qmlcache.qrc
 
 # Build folder
-build
+Client/build
+Server/build
