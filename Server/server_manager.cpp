@@ -44,6 +44,17 @@ void ServerManager::broadcastClientList()
     }
 }
 
+void ServerManager::broadcastChatMessage(const QString& message)
+{
+    QByteArray data;
+    QDataStream out(&data, QIODevice::WriteOnly);
+    out << QString("CHAT") << message;
+    for(int i = 0; i < _clients.length(); i++)
+    {
+        _clients[i]->write(data);
+    }
+}
+
 void ServerManager::OnNewClientReceived()
 {
     auto client = _server->nextPendingConnection();
@@ -112,7 +123,8 @@ void ServerManager::OnReadyRead()
             in >> message;
 
             QString fullMessage = client->property("name").toString() + ": " + message;
-            //broadcastChat(fullMessage);
+
+            broadcastChatMessage(fullMessage);
         }
         else
         {

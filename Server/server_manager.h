@@ -15,6 +15,7 @@ public:
     void setupServer(ushort port = 5500);
 
     void broadcastClientList();
+    void broadcastChatMessage(const QString& message);
 
 signals:
     void OnServerManagerClientConnected(QTcpSocket* client);
